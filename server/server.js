@@ -16,7 +16,6 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/productos', router_product)
 
-
 router_product.get("",(req, res) => { 
     res.json(products_module.index())
 })
