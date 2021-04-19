@@ -1,22 +1,25 @@
-const { shopping_carts } = require("./shopping_cart_array")
+const { shopping_carts } = require("../shopping_cart_array")
 
-exports.index = function () {
-    if (!shopping_carts.length) return { error: "no hay productos cargados" }
+exports.index = function (req, res) {
+    if (!shopping_carts.length) res.json( { error: "no hay productos cargados" } )
 
-    return shopping_carts
+    res.json( shopping_carts )
 }
 
-exports.store = function (shopping_cart) {
-
+exports.store = function (req, res) {
+    const shopping_cart = req.body
     shopping_carts.push({
         id: shopping_carts[shopping_carts.length - 1].id + 1, timestamp: new Date(), product: {
             ...shopping_cart
         }
     })
-    return { status: "ok" }
+    res.json( { status: "ok" } )
 }
 
-exports.update = function (id, shopping_cart) {
+exports.update = function (req, res) {
+    const id = req.params.id
+    const shopping_cart = req.body
+
     shopping_carts.map(p => {
         if (p.id == id) {
             p.product.name= new Date()
@@ -28,22 +31,24 @@ exports.update = function (id, shopping_cart) {
             p.product.stock = shopping_cart.stock
         }
     })
-    return shopping_cart
+    res.json( shopping_cart )
 }
 
-exports.destroy = function (id) {
+exports.destroy = function (req, res) {
+    const id = req.params.id
 
     const producto_eliminado = shopping_carts.filter(p => p.id == id)
     const index = shopping_carts.findIndex(p => p.id == id)
 
     if (index != -1) shopping_carts.splice(index, 1)
 
-    return producto_eliminado
+    res.json( producto_eliminado )
 }
 
-exports.show = function (id) {
+exports.show = function (req, res) {
+    const id = req.params.id
     let shopping_cart = shopping_carts.filter(e => e.id == id)
     if (!shopping_cart.length) { shopping_cart = { error: "No hay ningún producto en el carrito" } }
 
-    return shopping_cart
+    res.json( shopping_cart )
 }
