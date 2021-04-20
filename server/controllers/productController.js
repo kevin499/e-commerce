@@ -9,8 +9,12 @@ exports.index = function (req, res) {
 
 exports.store = function (req, res) {
     const product = req.body
-    products.push({ ...product, id: products[products.length - 1].id + 1, timestamp: new Date() })
-    res.json( { status: "ok" } )
+    let id = 1
+    if (products.length) {
+        id = products[products.length - 1].id + 1
+    }
+    products.push({ ...product, id: id, timestamp: new Date() })
+    res.json({ status: "ok" })
 }
 
 exports.update = function (req, res) {
@@ -28,7 +32,7 @@ exports.update = function (req, res) {
             p.stock = product.stock
         }
     })
-    res.json( product )
+    res.json(product)
 }
 
 exports.destroy = function (req, res) {
@@ -38,7 +42,7 @@ exports.destroy = function (req, res) {
 
     if (index != -1) products.splice(index, 1)
 
-    res.json( producto_eliminado )
+    res.json(producto_eliminado)
 }
 
 exports.show = function (req, res) {
@@ -47,5 +51,5 @@ exports.show = function (req, res) {
     let product = products.filter(e => e.id == id)
     if (!product.length) { product = { error: "producto no encontrado" } }
 
-    res.json( product )
+    res.json(product)
 }

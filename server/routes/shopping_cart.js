@@ -11,9 +11,9 @@ router_shopping_cart.get("", shoppingCartController.index)
 
 router_shopping_cart.get("/:id", shoppingCartController.show)
 
-router_shopping_cart.post("", is_admin, shoppingCartController.store)
+// router_shopping_cart.post("", is_admin, shoppingCartController.store)
 
-router_shopping_cart.put("/:id", is_admin, shoppingCartController.update)
+router_shopping_cart.post("/:id", is_admin, shoppingCartController.store)
 
 router_shopping_cart.delete("/:id", is_admin, shoppingCartController.destroy)
 
