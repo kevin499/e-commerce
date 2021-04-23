@@ -1,55 +1,74 @@
-const { products } = require("../products_array")
+const { options } = require("../options/mariaDB")
+
+const knex = require('knex')(options)
+
 
 exports.index = function (req, res) {
-    if (!products.length) return res.json({ error: "no hay productos cargados" })
-    console.log(products)
 
-    res.json(products)
+    knex('products')
+        .then(rows => {
+            if (!rows.length) return res.json({ error: "no hay productos cargados" })
+            res.json(rows)
+        })
+        .catch(() => {
+            res.sendStatus(500)
+        })
+
+
 }
 
 exports.store = function (req, res) {
     const product = req.body
-    let id = 1
-    if (products.length) {
-        id = products[products.length - 1].id + 1
-    }
-    products.push({ ...product, id: id, timestamp: new Date() })
-    res.json({ status: "ok" })
+    knex('products')
+        .insert(product)
+        .then(_ => {
+            res.json({ status: "ok" })
+        })
+        .catch(_ => {
+            res.sendStatus(500)
+        })
 }
 
 exports.update = function (req, res) {
     const id = req.params.id
     const product = req.body
 
-    products.map(p => {
-        if (p.id == id) {
-            p.timestamp = new Date()
-            p.name = product.name
-            p.description = product.description
-            p.code = product.code
-            p.picture = product.picture
-            p.price = product.price
-            p.stock = product.stock
-        }
-    })
-    res.json(product)
+    knex('products')
+        .where({ id: id })
+        .update(product)
+        .then(_ => {
+            res.json(product)
+        })
+        .catch(_ => {
+            res.sendStatus(500)
+        })
+
 }
 
 exports.destroy = function (req, res) {
     const id = req.params.id
-    const producto_eliminado = products.filter(p => p.id == id)
-    const index = products.findIndex(p => p.id == id)
 
-    if (index != -1) products.splice(index, 1)
-
-    res.json(producto_eliminado)
+    knex('products')
+        .where({ id: id })
+        .del()
+        .then(_ => {
+            res.json({ status: "ok" })
+        })
+        .catch(_ => {
+            res.sendStatus(500)
+        })
 }
 
 exports.show = function (req, res) {
     const id = req.params.id
 
-    let product = products.filter(e => e.id == id)
-    if (!product.length) { product = { error: "producto no encontrado" } }
-
-    res.json(product)
+    knex('products')
+    .where({ id: id })
+    .then(rows => {
+        if (!rows.length) return res.json({ error: "no se encontró el producto" })
+        res.json(rows)
+    })
+    .catch(() => {
+        res.sendStatus(500)
+    })
 }
