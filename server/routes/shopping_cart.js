@@ -2,19 +2,23 @@ const express = require('express')
 
 const { is_admin } = require("../middlewares/is_admin")
 
-const shoppingCartController = require('../controllers/shoppingCartController')
+const shoppingCartController = require('../controllers/mongoDB/shoppingCartController')
 
 const router_shopping_cart = express.Router()
 
+const DBFactory = require('../factories/DBFactory')
 
-router_shopping_cart.get("", shoppingCartController.index)
+const dbfactory = new DBFactory().initialize("mongodb")
 
-router_shopping_cart.get("/:id", shoppingCartController.show)
+dbfactory.connect(shoppingCartController)
 
-// router_shopping_cart.post("", is_admin, shoppingCartController.store)
 
-router_shopping_cart.post("/:id", is_admin, shoppingCartController.store)
+router_shopping_cart.get("", dbfactory.index.bind(dbfactory))
 
-router_shopping_cart.delete("/:id", is_admin, shoppingCartController.destroy)
+router_shopping_cart.get("/:id", dbfactory.show.bind(dbfactory))
+
+router_shopping_cart.post("/:id", dbfactory.store.bind(dbfactory))
+
+// router_shopping_cart.delete("/:id", dbfactory.destroy.bind(dbfactory))
 
 module.exports = router_shopping_cart

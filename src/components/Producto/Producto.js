@@ -23,7 +23,7 @@ const Producto = (props) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(productChanged)
         };
-        fetch(`http://localhost:8080/api/productos/${producto.id}`, requestOptions)
+        fetch(`http://localhost:8080/api/productos/${producto.id || producto._id}`, requestOptions)
             .then(response => {
                 if (response.ok) {
                     handleClose()
@@ -33,14 +33,12 @@ const Producto = (props) => {
     }
 
     const deleteProduct = () => {
-        console.log(producto)
-        const id = producto.id
 
         const requestOptions = {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
         };
-        fetch(`http://localhost:8080/api/productos/${id}`, requestOptions)
+        fetch(`http://localhost:8080/api/productos/${producto.id || producto._id}`, requestOptions)
             .then(response => {
                 if (response.ok) {
                     console.log("se borró")
