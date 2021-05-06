@@ -28,14 +28,15 @@ module.exports = class productController {
         try{
             console.log("Cargar en el carrito")
 
-            let products = await product_model.products.find({"_id": ObjectId(`${id}`)})
+            let product = await product_model.products.find({"_id": ObjectId(`${id}`)})
+            console.log(product)
 
-            if(!products.length){
+            if(!product.length){
                 throw new Error("El producto no existe.")
             }
 
             let new_shopping_cart = new model.shopping_carts({
-                product: [...products],
+                product: product[0],
                 quantity: 1
             })
             new_shopping_cart.save()

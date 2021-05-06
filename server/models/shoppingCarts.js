@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const shoppingCartsCollection = 'shoppingCarts'
 
 const shoppingCartSchema = new mongoose.Schema({
-    product: {type: Array},
+    product: {type: Object},
     quantity: {type: Number}
 })
 

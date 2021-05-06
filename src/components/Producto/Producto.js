@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import "./producto.css"
+
+import { useHistory } from 'react-router-dom'
 
 import { Modal, Button } from 'react-bootstrap'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 
 const Producto = (props) => {
 
@@ -11,6 +16,8 @@ const Producto = (props) => {
 
     const handleClose = () => setShowEditar(false);
     const handleShow = () => setShowEditar(true);
+
+    const history = useHistory();
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -47,6 +54,21 @@ const Producto = (props) => {
             })
     }
 
+    const addToCart = () => {
+        const id = producto.id || producto._id
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        };
+        fetch(`http://localhost:8080/api/carrito/${id}`, requestOptions)
+            .then(response => {
+                if (response.ok) {
+                    history.push('/carrito')
+                }
+            })
+    }
+
     useEffect(() => {
 
         setProducto(props.producto)
@@ -55,7 +77,7 @@ const Producto = (props) => {
 
     return (
         <>
-            <div className="card d-inline-block m-2" style={{ width: "18rem" }}>
+            <div className="position-relative card d-inline-block m-2" style={{ width: "18rem" }}>
                 <img src={producto.picture} className="card-img-top" alt="..." />
                 <div className="card-body">
                     <h5 className="card-title">$ {producto.price}</h5>
@@ -63,6 +85,8 @@ const Producto = (props) => {
                     <p className="card-text">{producto.description}</p>
                     <a href="#" className="btn btn-sm btn-warning col-6" onClick={handleShow}>Editar</a>
                     <a href="#" className="btn btn-sm btn-danger col-6" onClick={deleteProduct}>X</a>
+                    <button type="button"  className="btn btn-sm btn-success shopping-cart" onClick={addToCart}><FontAwesomeIcon icon={faShoppingCart}/></button>
+                    
                 </div>
             </div>
 

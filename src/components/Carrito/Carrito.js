@@ -56,7 +56,7 @@ const Carrito = () => {
 
             {
                 carrito ? carrito?.map((item) => (
-                    <ProductoCarrito key={item.id} producto={item} updateProducts={updateShoppingCart}></ProductoCarrito>
+                    <ProductoCarrito key={item.id} producto={item.product || item} updateProducts={updateShoppingCart}></ProductoCarrito>
                 ))
                     : ''
             }
