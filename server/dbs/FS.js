@@ -1,11 +1,9 @@
-const { options } = require("../options/mariaDB")
 
 module.exports = class mariaDB{
     connect(controller){
-        console.log("Connectado mariaDB...")
-        this.db = require('knex')(options)
-        this.controller = new controller(this.db)
-        // console.log(new controller())
+        console.log("Conectado a FileSystem...")
+        // this.db = 
+        // this.controller =
     }
     index(req, res){
         this.controller.index(req, res)

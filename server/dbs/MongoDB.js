@@ -1,6 +1,4 @@
 const  mongoose  = require("mongoose")
-// const { options } = require("../options/mariaDB")
-
 
 module.exports = class MongoDB{
     async connect(controller){
