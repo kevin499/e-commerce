@@ -85,8 +85,7 @@ const Producto = (props) => {
                     <p className="card-text">{producto.description}</p>
                     <a href="#" className="btn btn-sm btn-warning col-6" onClick={handleShow}>Editar</a>
                     <a href="#" className="btn btn-sm btn-danger col-6" onClick={deleteProduct}>X</a>
-                    <button type="button"  className="btn btn-sm btn-success shopping-cart" onClick={addToCart}><FontAwesomeIcon icon={faShoppingCart}/></button>
-                    
+                    <button type="button" className="btn btn-sm btn-success shopping-cart" onClick={addToCart}><FontAwesomeIcon icon={faShoppingCart} /></button>
                 </div>
             </div>
 

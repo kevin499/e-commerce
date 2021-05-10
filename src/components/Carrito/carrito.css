@@ -1,0 +1,29 @@
+.carrito {
+    height: 100%; 
+    width: 0; 
+    position: fixed; 
+    z-index: 1; 
+    top: 0; 
+    right: 0;
+    background-color: rgb(243, 241, 241); 
+    overflow-x: hidden; 
+    padding: 60px 0; 
+    transition: 0.5s; 
+  }
+  
+  .carrito .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  
+  @media screen and (max-height: 450px) {
+    .carrito {padding-top: 15px;}
+  }
+
+  .open-shopping-cart{
+    width: 350px;
+  }

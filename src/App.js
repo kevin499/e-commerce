@@ -22,8 +22,8 @@ function App() {
 
         <Switch>
           <Route exact path='/' component={ResultadoBusqueda}></Route>
-          <Route exact path='/carrito' component={Carrito}></Route>
         </Switch>
+        <Carrito openShoppingCart={true}></Carrito>
       </Router>
 
     </>
