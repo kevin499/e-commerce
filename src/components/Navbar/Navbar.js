@@ -1,8 +1,17 @@
 import React from 'react'
 
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { showShoppingCart } from '../../store/ui/actions';
 
 const Navbar = () => {
+
+    const dispatch = useDispatch()
+
+    const openShoppingCart = () => {
+        dispatch(showShoppingCart(true))
+    }
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -17,7 +26,7 @@ const Navbar = () => {
                                 <Link className="nav-link" to="/">Inicio</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/carrito">Carrito</Link>
+                                <button className="nav-link" onClick={openShoppingCart}>Carrito</button>
                             </li>
                         </ul>
                     </div>
