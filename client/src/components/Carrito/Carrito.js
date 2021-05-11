@@ -6,7 +6,7 @@ import './carrito.css'
 
 import ProductoCarrito from '../ProductoCarrito/ProductoCarrito'
 
-const Carrito = (props) => {
+const Carrito = () => {
 
     const [carrito, setCarrito] = useState([])
 
@@ -51,27 +51,25 @@ const Carrito = (props) => {
         <section className={`carrito  ${show && 'open-shopping-cart'}`}>
             <div className="px-4 h-100">
                 <button className="btn btn-link closebtn" onClick={() => dispatch(showShoppingCart(false))} >&times;</button>
-                <h2>Carrito: </h2>
+                <h2>Carrito </h2>
                 <div className="d-block">
                     <form className="mb-3" onSubmit={handleSubmit}>
-                        <p>Agregar al carrito</p>
                         <div className="d-flex">
-                            <input type="text" name="id" placeholder="ID del producto" />
+                            <input className="form-control" type="text" name="id" placeholder="ID del producto" />
                             <button className="btn btn-success btn-sm">Agregar</button>
                         </div>
-
                     </form>
                 </div>
                 <div className="products-in-cart">
 
-                {
-                    carrito && carrito?.map((item) => (
-                        <ProductoCarrito key={item.id || item._id} producto={item.product || item} updateProducts={updateShoppingCart}></ProductoCarrito>
-                    ))
-                }
+                    {
+                        carrito && carrito?.map((item) => (
+                            <ProductoCarrito key={item.id || item._id} producto={item.product || item} updateProducts={updateShoppingCart}></ProductoCarrito>
+                        ))
+                    }
                 </div>
 
-            <button type="button" className="btn btn-success btn-payment w-100 mt-2">Pagar</button>
+                <button type="button" className="btn btn-success btn-payment w-100 mt-3">Pagar</button>
 
             </div>
 

@@ -13,27 +13,26 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
+.carrito .products-in-cart {
+  height: 85%;
+  overflow-y: auto;
+  visibility: hidden;
+}
+
+.open-shopping-cart {
+  width: 350px;
+}
+
+.open-shopping-cart .products-in-cart {
+  visibility: visible;
+}
+
 .carrito .closebtn {
   position: absolute;
   top: 0;
   right: 25px;
   font-size: 36px;
   margin-left: 50px;
-}
-
-.products-in-cart {
-  /* max-height: 20%; */
-  height: 70%;
-  overflow-y: scroll;
-}
-/* 
-.btn-payment {
-  width: 100%;
-  padding: ;
-} */
-
-.open-shopping-cart {
-  width: 350px;
 }
 
 .products-in-cart::-webkit-scrollbar {

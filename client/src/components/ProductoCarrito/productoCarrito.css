@@ -1,7 +1,7 @@
 .card-shopping-cart{
     clip-path: circle(40.0% at 50% 50%);
     width: 100%;
-    background-color: gray;
+    background-color: rgba(0, 0, 0, .3);
     display: flex;
     justify-content: center;
     align-items: center;

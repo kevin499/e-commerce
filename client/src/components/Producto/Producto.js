@@ -18,13 +18,10 @@ const Producto = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const formData = new FormData(e.target);
-        const productChanged = Object.fromEntries(formData)
-
         const requestOptions = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(productChanged)
+            body: JSON.stringify(producto)
         };
         fetch(`http://localhost:8080/api/productos/${producto.id || producto._id}`, requestOptions)
             .then(response => {
@@ -65,11 +62,20 @@ const Producto = (props) => {
             })
     }
 
+    const handleInputChange = ({ target }) => {
+        const is_number = ["price", "stock"].indexOf(target.name) > -1
+        setProducto(state => ({ ...state, [target.name]: is_number ? target.valueAsNumber : target.value }))
+    }
+
     useEffect(() => {
 
         setProducto(props.producto)
 
     }, [props.producto])
+
+    useEffect(() => {
+        console.log(producto)
+    }, [producto])
 
     return (
         <>
@@ -90,11 +96,11 @@ const Producto = (props) => {
 
                     <form onSubmit={handleSubmit}>
                         <h1 className="text-muted mb-4">Editar Producto</h1>
-                        <input className="form-control mt-2" type="text" name="name" placeholder="Nombre" defaultValue={producto.name} />
-                        <input className="form-control mt-2" type="text" name="description" placeholder="Descripcion" defaultValue={producto.description} />
-                        <input className="form-control mt-2" type="text" name="picture" placeholder="URL imagen" defaultValue={producto.picture} />
-                        <input className="form-control mt-2" type="text" name="price" placeholder="Precio" defaultValue={producto.price} />
-                        <input className="form-control mt-2" type="text" name="stock" placeholder="Stock" defaultValue={producto.stock} />
+                        <input className="form-control mt-2" type="text" name="name" placeholder="Nombre" defaultValue={producto.name} onChange={handleInputChange} />
+                        <input className="form-control mt-2" type="text" name="description" placeholder="Descripcion" defaultValue={producto.description} onChange={handleInputChange} />
+                        <input className="form-control mt-2" type="text" name="picture" placeholder="URL imagen" defaultValue={producto.picture} onChange={handleInputChange} />
+                        <input className="form-control mt-2" type="number" name="price" placeholder="Precio" defaultValue={producto.price} onChange={handleInputChange} />
+                        <input className="form-control mt-2" type="number" name="stock" placeholder="Stock" defaultValue={producto.stock} onChange={handleInputChange} />
                         <button className="btn btn-warning col-12 mt-4" onClick={handleShow}>Editar</button>
                     </form>
 

@@ -8,6 +8,17 @@ const ResultadoBusqueda = () => {
 
     const [productos, setProductos] = useState([])
 
+    const initialState = {
+        name: '',
+        description: '',
+        picture: '',
+        price: '',
+        stock: ''
+    }
+
+    const [form, setForm] = useState(initialState)
+
+
     const [showAddProduct, setShowAddProduct] = useState(false);
 
     const handleClose = () => setShowAddProduct(false);
@@ -16,17 +27,18 @@ const ResultadoBusqueda = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const formData = new FormData(e.target);
-        const productChanged = Object.fromEntries(formData)
+        // const formData = new FormData(e.target);
+        // const productChanged = Object.fromEntries(formData)
 
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(productChanged)
+            body: JSON.stringify(form)
         };
         fetch(`http://localhost:8080/api/productos/`, requestOptions)
             .then(response => {
                 if (response.ok) {
+                    cleanState()
                     handleClose()
                     updateProducts()
                 }
@@ -43,6 +55,13 @@ const ResultadoBusqueda = () => {
                 setProductos([...data])
             })
     }
+
+    const handleInputChange = ({ target }) => {
+        const is_number = ["price", "stock"].indexOf(target.name) > -1
+        setForm(state => ({ ...state, [target.name]: is_number ? target.valueAsNumber : target.value }))
+    }
+
+    const cleanState = _ => setForm({ ...initialState })
 
     useEffect(() => {
         updateProducts()
@@ -67,13 +86,14 @@ const ResultadoBusqueda = () => {
 
                     <form onSubmit={handleSubmit}>
                         <h1 className="text-muted mb-4">Agregar Producto</h1>
-                        <input className="form-control mt-2" type="text" name="name" placeholder="Nombre" />
-                        <input className="form-control mt-2" type="text" name="description" placeholder="Descripcion" />
-                        <input className="form-control mt-2" type="text" name="picture" placeholder="URL imagen" />
-                        <input className="form-control mt-2" type="text" name="price" placeholder="Precio" />
-                        <input className="form-control mt-2" type="text" name="stock" placeholder="Stock" />
+                        <input className="form-control mt-2" type="text" name="name" value={form.name} onChange={handleInputChange} placeholder="Nombre" />
+                        <input className="form-control mt-2" type="text" name="description" value={form.description} onChange={handleInputChange} placeholder="Descripcion" />
+                        <input className="form-control mt-2" type="text" name="picture" value={form.picture} onChange={handleInputChange} placeholder="URL imagen" />
+                        <input className="form-control mt-2" type="number" name="price" value={form.price} onChange={handleInputChange} placeholder="Precio" />
+                        <input className="form-control mt-2" type="number" name="stock" value={form.stock} onChange={handleInputChange} placeholder="Stock" />
                         <button className="btn btn-success col-12 mt-4">Agregar</button>
                     </form>
+                    
                 </Modal.Body>
             </Modal>
         </section>
