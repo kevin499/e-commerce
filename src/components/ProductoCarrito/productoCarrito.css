@@ -1,0 +1,13 @@
+.card-shopping-cart{
+    clip-path: circle(40.0% at 50% 50%);
+    width: 100%;
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+.card-shopping-cart img{
+    width: 100%;
+    height: auto;
+}

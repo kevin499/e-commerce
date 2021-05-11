@@ -16,7 +16,7 @@ const Navbar = () => {
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#">E-commerce</a>
+                    <button className="navbar-brand btn btn-link">E-commerce</button>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -26,7 +26,7 @@ const Navbar = () => {
                                 <Link className="nav-link" to="/">Inicio</Link>
                             </li>
                             <li className="nav-item">
-                                <button className="nav-link" onClick={openShoppingCart}>Carrito</button>
+                                <button className="nav-link btn btn-link" onClick={openShoppingCart}>Carrito</button>
                             </li>
                         </ul>
                     </div>

@@ -12,7 +12,7 @@ const Carrito = (props) => {
 
     const dispatch = useDispatch()
 
-    const show = useSelector (state => state.SHOW_SHOPPING_CART)
+    const show = useSelector(state => state.SHOW_SHOPPING_CART)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -45,30 +45,35 @@ const Carrito = (props) => {
 
     useEffect(() => {
         updateShoppingCart()
-    }, [])
+    }, [show])
 
     return (
         <section className={`carrito  ${show && 'open-shopping-cart'}`}>
-            <a href="javascript:void(0)" class="closebtn" onClick={() => dispatch(showShoppingCart(false))} >&times;</a>
-            <h2>Carrito: </h2>
-            <div className="d-block">
+            <div className="px-4 h-100">
+                <button className="btn btn-link closebtn" onClick={() => dispatch(showShoppingCart(false))} >&times;</button>
+                <h2>Carrito: </h2>
+                <div className="d-block">
+                    <form className="mb-3" onSubmit={handleSubmit}>
+                        <p>Agregar al carrito</p>
+                        <div className="d-flex">
+                            <input type="text" name="id" placeholder="ID del producto" />
+                            <button className="btn btn-success btn-sm">Agregar</button>
+                        </div>
 
-                <form className="mb-3" onSubmit={handleSubmit}>
-                    <p>Agregar al carrito</p>
-                    <div className="d-flex">
-                        <input type="text" name="id" placeholder="ID del producto" />
-                        <button className="btn btn-success btn-sm">Agregar</button>
-                    </div>
+                    </form>
+                </div>
+                <div className="products-in-cart">
 
-                </form>
+                {
+                    carrito && carrito?.map((item) => (
+                        <ProductoCarrito key={item.id || item._id} producto={item.product || item} updateProducts={updateShoppingCart}></ProductoCarrito>
+                    ))
+                }
+                </div>
+
+            <button type="button" className="btn btn-success btn-payment w-100 mt-2">Pagar</button>
+
             </div>
-
-            {
-                carrito ? carrito?.map((item) => (
-                    <ProductoCarrito key={item.id} producto={item.product || item} updateProducts={updateShoppingCart}></ProductoCarrito>
-                ))
-                    : ''
-            }
 
         </section>
     )

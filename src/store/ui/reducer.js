@@ -1,5 +1,5 @@
 const initialState = {
-    showShoppingCart: false
+    SHOW_SHOPPING_CART: false
 }
 
 const uiReducer = (state = initialState, action) => {

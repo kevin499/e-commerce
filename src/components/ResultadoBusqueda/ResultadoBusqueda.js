@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { Modal, Button } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 
 import Producto from '../Producto/Producto'
 
@@ -56,7 +56,7 @@ const ResultadoBusqueda = () => {
             </div>
             {
                 productos ? productos?.map((producto) => (
-                    <Producto key={producto.id} producto={producto} updateProducts={updateProducts}></Producto>
+                    <Producto key={producto.id || producto._id} producto={producto} updateProducts={updateProducts}></Producto>
                 ))
                     : ''
             }
