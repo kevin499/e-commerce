@@ -2,11 +2,11 @@ const express = require('express')
 
 const { is_admin } = require("../middlewares/is_admin")
 
-const productController = require('../controllers/mongoDB/productController')
+const productController = require('../controllers/FS/productController')
 
 const DBFactory = require('../factories/DBFactory')
 
-const dbfactory = new DBFactory().initialize("mongodb")
+const dbfactory = new DBFactory().initialize("fs")
 
 dbfactory.connect(productController)
 

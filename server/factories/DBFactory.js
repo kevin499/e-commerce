@@ -1,5 +1,7 @@
 const mariaDB = require('../dbs/MariaDB')
 const MongoDB = require('../dbs/MongoDB')
+const FS = require('../dbs/FS')
+
 
 
 module.exports = class DBFactory {
@@ -14,6 +16,8 @@ module.exports = class DBFactory {
                 return new mariaDB()
             case 'mongodb':
                 return new MongoDB()
+            case 'fs':
+                return new FS()
             default:
                 break;
         }

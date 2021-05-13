@@ -1,9 +1,10 @@
+const productController = require("../controllers/FS/productController")
 
 module.exports = class mariaDB{
     connect(controller){
         console.log("Conectado a FileSystem...")
         // this.db = 
-        // this.controller =
+        this.controller = new productController("prueba.txt")
     }
     index(req, res){
         this.controller.index(req, res)
